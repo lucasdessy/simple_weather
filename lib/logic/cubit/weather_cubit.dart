@@ -7,14 +7,12 @@ part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   final WeatherRepository repository;
-  WeatherCubit(this.repository) : super(WeatherInitialState()) {
-    reloadWeather();
-  }
+  WeatherCubit(this.repository) : super(WeatherInitialState());
 
-  Future<void> reloadWeather() async {
+  Future<void> reloadWeather(String cityId) async {
     try {
       emit(WeatherLoadingState());
-      final _weather = await repository.getWeather('Tupã');
+      final _weather = await repository.getWeather(cityId);
       emit(WeatherLoadedState(_weather));
     } catch (e) {
       print(e);
