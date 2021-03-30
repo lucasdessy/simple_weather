@@ -19,6 +19,7 @@ class WeatherFirebaseProvider
 class WeatherMockProvider implements WeatherProvider {
   @override
   Future<Weather> getWeather(String cityId) async {
+    await Future.delayed(Duration(seconds: 2));
     return Weather(
       date: 'Terça-feira',
       day: '30/03',
