@@ -42,17 +42,19 @@ class HomePage extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
 
-  Widget _buildWeather(Forecast forecast) => Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          HomeWeatherCard(
-            forecast: forecast,
-          ),
-          HomeSearchWidget(
-            initialText: forecast.cityName,
-          ),
-        ],
+  Widget _buildWeather(Forecast forecast) => SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            HomeWeatherCard(
+              forecast: forecast,
+            ),
+            HomeSearchWidget(
+              initialText: forecast.cityName,
+            ),
+          ],
+        ),
       );
 }

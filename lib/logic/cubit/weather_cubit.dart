@@ -34,5 +34,6 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
     if (state is WeatherLoadedState) {
       return state.toMap();
     }
+    return null;
   }
 }
