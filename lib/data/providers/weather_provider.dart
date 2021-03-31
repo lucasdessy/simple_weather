@@ -1,39 +1,41 @@
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:simple_weather/data/models/temperature.dart';
-import 'package:simple_weather/data/models/weather.dart';
+import 'package:simple_weather/data/models/forecast.dart';
 
 abstract class WeatherProvider {
-  Future<Weather> getWeather(String cityId);
+  Future<Forecast> getWeather(String cityId);
 }
 
-class WeatherFirebaseProvider
-// implements WeatherProvider
-{
-  // ignore: unused_field
+class WeatherFirebaseProvider implements WeatherProvider {
   final FirebaseFunctions _functions;
-
+  late final HttpsCallable _getWeather;
   WeatherFirebaseProvider({FirebaseFunctions? functions})
-      : _functions = functions ?? FirebaseFunctions.instance;
+      : _functions = functions ?? FirebaseFunctions.instance {
+    _getWeather = _functions.httpsCallable('getWeather');
+  }
+  @override
+  Future<Forecast> getWeather(String cityId) async {
+    try {
+      print('getting weather...');
+      final response = await _getWeather({'cityId': cityId});
+      final _forecast = Forecast.fromJson(
+        Map.from(response.data),
+      );
+      print(_forecast);
+      return _forecast;
+    } catch (e) {
+      print('erro ao processar. $e');
+      throw Exception();
+    }
+  }
 }
 
 class WeatherMockProvider implements WeatherProvider {
   @override
-  Future<Weather> getWeather(String cityId) async {
+  Future<Forecast> getWeather(String cityId) async {
     await Future.delayed(Duration(seconds: 2));
 
-    return Weather(
-      date: 'Terça-feira',
-      day: '30/03',
-      temperatures: [
-        Temperature(temperatue: '24°'),
-        Temperature(temperatue: '21°'),
-        Temperature(temperatue: '20°'),
-        Temperature(temperatue: '19°'),
-        Temperature(temperatue: '18°'),
-        Temperature(temperatue: '24°'),
-      ],
-    );
+    return Forecast();
   }
 }

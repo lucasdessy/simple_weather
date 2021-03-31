@@ -10,7 +10,7 @@ class WeatherLoadingState extends WeatherState {}
 class WeatherErrorState extends WeatherState {}
 
 class WeatherLoadedState extends WeatherState {
-  final Weather weather;
+  final Forecast forecast;
 
-  WeatherLoadedState(this.weather);
+  WeatherLoadedState(this.forecast);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_weather/data/models/weather.dart';
+import 'package:simple_weather/data/models/forecast.dart';
 import 'package:simple_weather/logic/cubit/weather_cubit.dart';
 import 'package:simple_weather/presentation/home/home_weather_card.dart';
 
@@ -15,16 +15,21 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: BlocBuilder<WeatherCubit, WeatherState>(
+        child: BlocConsumer<WeatherCubit, WeatherState>(
+          listener: (context, state) {
+            if (state is WeatherErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Não foi possível carregar dados.'),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
-            if (state is WeatherInitialState) {
-              return HomeSearchWidget();
-            } else if (state is WeatherLoadingState) {
+            if (state is WeatherLoadingState) {
               return _buildLoading();
-            } else if (state is WeatherErrorState) {
-              return _buildError();
             } else if (state is WeatherLoadedState) {
-              return _buildWeather(state.weather);
+              return _buildWeather(state.forecast);
             }
             return HomeSearchWidget();
           },
@@ -37,31 +42,13 @@ class HomePage extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
 
-  Widget _buildError() => Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Builder(
-            builder: (context) => Text(
-              'Ocorreu um erro ao carregar tempo.',
-              style: Theme.of(context)
-                  .textTheme
-                  .button
-                  ?.copyWith(color: Colors.red),
-            ),
-          ),
-          HomeSearchWidget(),
-        ],
-      );
-
-  Widget _buildWeather(Weather weather) => Column(
+  Widget _buildWeather(Forecast forecast) => Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           HomeWeatherCard(
-            weather: weather,
+            forecast: forecast,
           ),
           HomeSearchWidget(),
         ],

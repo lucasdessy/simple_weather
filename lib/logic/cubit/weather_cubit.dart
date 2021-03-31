@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:simple_weather/data/models/weather.dart';
+import 'package:simple_weather/data/models/forecast.dart';
 import 'package:simple_weather/data/repositories/weather_repository.dart';
 
 part 'weather_state.dart';
@@ -12,7 +12,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> reloadWeather(String cityId) async {
     try {
       emit(WeatherLoadingState());
-      final _weather = await repository.getWeather(cityId);
+      final _weather = await repository.getForecast(cityId);
       emit(WeatherLoadedState(_weather));
     } catch (e) {
       print(e);
