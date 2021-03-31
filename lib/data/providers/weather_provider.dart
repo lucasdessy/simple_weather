@@ -1,8 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:simple_weather/data/models/forecast.dart';
 
 abstract class WeatherProvider {
-  Future<Forecast> getWeather(String cityId);
+  Future<Map<String, dynamic>> getWeather(String cityId, String cityName);
 }
 
 class WeatherFirebaseProvider implements WeatherProvider {
@@ -13,15 +12,12 @@ class WeatherFirebaseProvider implements WeatherProvider {
     _getWeather = _functions.httpsCallable('getWeather');
   }
   @override
-  Future<Forecast> getWeather(String cityId) async {
+  Future<Map<String, dynamic>> getWeather(
+      String cityId, String cityName) async {
     try {
       print('getting weather...');
       final response = await _getWeather({'cityId': cityId});
-      final _forecast = Forecast.fromJson(
-        Map.from(response.data),
-      );
-      print(_forecast);
-      return _forecast;
+      return Map<String, dynamic>.from(response.data);
     } catch (e) {
       print('erro ao processar. $e');
       throw Exception();
@@ -29,11 +25,11 @@ class WeatherFirebaseProvider implements WeatherProvider {
   }
 }
 
-class WeatherMockProvider implements WeatherProvider {
-  @override
-  Future<Forecast> getWeather(String cityId) async {
-    await Future.delayed(Duration(seconds: 2));
+// class WeatherMockProvider implements WeatherProvider {
+//   @override
+//   Future<Forecast> getWeather(String cityId, String cityName) async {
+//     await Future.delayed(Duration(seconds: 2));
 
-    return Forecast();
-  }
-}
+//     return Forecast(cityName: cityName);
+//   }
+// }

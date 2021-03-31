@@ -6,10 +6,13 @@ class WeatherRepository {
 
   WeatherRepository({required this.provider});
 
-  Future<Forecast> getForecast(String cityId) async {
+  Future<Forecast> getForecast(String cityId, String cityName) async {
     try {
-      final weather = await provider.getWeather(cityId);
-      return weather;
+      final jsonMap = await provider.getWeather(cityId, cityName);
+
+      final forecast = Forecast.fromMap(jsonMap, cityName: cityName);
+
+      return forecast;
     } catch (e) {
       print(e);
       throw Exception();
