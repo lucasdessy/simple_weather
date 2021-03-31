@@ -50,7 +50,9 @@ class HomePage extends StatelessWidget {
           HomeWeatherCard(
             forecast: forecast,
           ),
-          HomeSearchWidget(),
+          HomeSearchWidget(
+            initialText: forecast.cityName,
+          ),
         ],
       );
 }
