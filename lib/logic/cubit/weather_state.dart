@@ -16,13 +16,13 @@ class WeatherLoadedState extends WeatherState {
 
   Map<String, dynamic> toMap() {
     return {
-      'forecast': forecast.toMap(),
+      'forecast': forecast.toJson(),
     };
   }
 
   factory WeatherLoadedState.fromMap(Map<String, dynamic> map) {
     return WeatherLoadedState(
-      Forecast.fromMap(map['forecast']),
+      Forecast.fromJson(map['forecast']),
     );
   }
 }

@@ -49,7 +49,8 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             HomeWeatherCard(
-              forecast: forecast,
+              day: forecast.days[0],
+              cityName: forecast.cityName,
             ),
             HomeSearchWidget(
               initialText: forecast.cityName,

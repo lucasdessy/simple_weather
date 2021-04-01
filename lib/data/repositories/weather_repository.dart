@@ -9,9 +9,7 @@ class WeatherRepository {
   Future<Forecast> getForecast(String cityId, String cityName) async {
     try {
       final jsonMap = await provider.getWeather(cityId, cityName);
-
-      final forecast = Forecast.fromMap(jsonMap, cityName: cityName);
-
+      final forecast = Forecast.fromJson(jsonMap, cityName: cityName);
       return forecast;
     } catch (e) {
       print(e);

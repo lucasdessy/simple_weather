@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:simple_weather/data/models/forecast.dart';
+import 'package:simple_weather/data/models/day.dart';
 import 'package:simple_weather/presentation/home/home_chart.dart';
 import 'package:simple_weather/util/make_chart.dart';
 
 class HomeWeatherCard extends StatelessWidget {
-  final Forecast forecast;
+  final String cityName;
+  final Day day;
 
-  const HomeWeatherCard({Key? key, required this.forecast}) : super(key: key);
+  const HomeWeatherCard({Key? key, required this.day, required this.cityName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class HomeWeatherCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${forecast.cityName}',
+                  '$cityName',
                   style: Theme.of(context).textTheme.headline3?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w200,
@@ -49,7 +51,7 @@ class HomeWeatherCard extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  '${forecast.day}',
+                  '${day.day}',
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w300,
@@ -59,7 +61,7 @@ class HomeWeatherCard extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  '${forecast.date}',
+                  '${day.date}',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
@@ -70,7 +72,7 @@ class HomeWeatherCard extends StatelessWidget {
           ),
           Expanded(
             child: _TemperatureCards(
-              forecast: forecast,
+              day: day,
             ),
           ),
         ],
@@ -80,9 +82,9 @@ class HomeWeatherCard extends StatelessWidget {
 }
 
 class _TemperatureCards extends StatefulWidget {
-  final Forecast forecast;
+  final Day day;
 
-  const _TemperatureCards({Key? key, required this.forecast}) : super(key: key);
+  const _TemperatureCards({Key? key, required this.day}) : super(key: key);
 
   @override
   __TemperatureCardsState createState() => __TemperatureCardsState();
@@ -102,22 +104,16 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
     List<String?>? _newChart;
     switch (value) {
       case 0:
-        _newChart = widget.forecast.temperatures;
+        _newChart = widget.day.temperatures;
         break;
       case 1:
-        _newChart = widget.forecast.humidity;
+        _newChart = widget.day.windspeed;
         break;
       case 2:
-        _newChart = widget.forecast.windspeeds;
+        _newChart = widget.day.precips;
         break;
       case 3:
-        _newChart = widget.forecast.precips;
-        break;
-      case 4:
-        _newChart = widget.forecast.rainprob;
-        break;
-      case 5:
-        _newChart = widget.forecast.cloudiness;
+        _newChart = widget.day.precipprob;
         break;
     }
     print(_newChart);
@@ -149,8 +145,6 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
               _temperatureCard(Icon(Icons.water_damage_outlined), 1),
               _temperatureCard(Icon(Icons.line_style), 2),
               _temperatureCard(Icon(Icons.umbrella), 3),
-              _temperatureCard(Icon(Icons.ramen_dining), 4),
-              _temperatureCard(Icon(Icons.wb_cloudy), 5),
             ],
           ),
         ),

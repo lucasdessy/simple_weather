@@ -45,6 +45,9 @@ class _HomeSearchWidgetState extends State<HomeSearchWidget> {
                   .read<WeatherCubit>()
                   .reloadWeather(suggestion.code, suggestion.name);
             },
+            noItemsFoundBuilder: (context) => ListTile(
+              title: Text('Nenhuma cidade encontrada.'),
+            ),
             suggestionsCallback: (pattern) {
               final suggestionList = <_ItemSuggestion>[];
               var keys = Constants.citiesMap.keys

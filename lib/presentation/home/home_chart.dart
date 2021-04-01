@@ -8,11 +8,11 @@ class HomeChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 30),
       child: LineChart(
         data,
-        swapAnimationDuration: const Duration(milliseconds: 650),
-        swapAnimationCurve: Curves.easeOutCirc,
+        swapAnimationDuration: const Duration(milliseconds: 500),
+        swapAnimationCurve: Curves.easeOut,
       ),
     );
   }
