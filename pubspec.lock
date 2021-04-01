@@ -261,6 +261,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  html_character_entities:
+    dependency: "direct main"
+    description:
+      name: html_character_entities
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+1"
   hydrated_bloc:
     dependency: "direct main"
     description:

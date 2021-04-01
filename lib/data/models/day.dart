@@ -1,3 +1,5 @@
+import 'package:html_character_entities/html_character_entities.dart';
+
 import 'day_data.dart';
 
 class Day {
@@ -27,18 +29,28 @@ class Day {
       this.precipprob});
 
   Day.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    dayShort = json['day_short'];
-    date = json['date'];
-    tempMin = json['temp_min'];
-    tempMax = json['temp_max'];
+    day = HtmlCharacterEntities.decode(json['day']);
+    dayShort = HtmlCharacterEntities.decode(json['day_short']);
+    date = HtmlCharacterEntities.decode(json['date']);
+    tempMin = HtmlCharacterEntities.decode(json['temp_min']);
+    tempMax = HtmlCharacterEntities.decode(json['temp_max']);
     data =
         json['data'] != null ? DayData.fromJson(Map.from(json['data'])) : null;
-    temperatures = json['temperatures'].cast<String>();
-    winddirs = json['winddirs'].cast<String>();
-    windspeed = json['windspeed'].cast<String>();
-    precips = json['precips'].cast<String>();
-    precipprob = json['precipprob'].cast<String>();
+    temperatures = (json['temperatures'] as List)
+        .map((e) => HtmlCharacterEntities.decode(e.toString()))
+        .toList();
+    winddirs = (json['winddirs'] as List)
+        .map((e) => HtmlCharacterEntities.decode(e.toString()))
+        .toList();
+    windspeed = (json['windspeed'] as List)
+        .map((e) => HtmlCharacterEntities.decode(e.toString()))
+        .toList();
+    precips = (json['precips'] as List)
+        .map((e) => HtmlCharacterEntities.decode(e.toString()))
+        .toList();
+    precipprob = (json['precipprob'] as List)
+        .map((e) => HtmlCharacterEntities.decode(e.toString()))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {

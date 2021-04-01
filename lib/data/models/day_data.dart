@@ -1,3 +1,5 @@
+import 'package:html_character_entities/html_character_entities.dart';
+
 class DayData {
   String? wind;
   String? humidity;
@@ -6,9 +8,9 @@ class DayData {
   DayData({this.wind, this.humidity, this.precip});
 
   DayData.fromJson(Map<String, dynamic> json) {
-    wind = json['wind'];
-    humidity = json['humidity'];
-    precip = json['precip'];
+    wind = HtmlCharacterEntities.decode(json['wind']);
+    humidity = HtmlCharacterEntities.decode(json['humidity']);
+    precip = HtmlCharacterEntities.decode(json['precip']);
   }
 
   Map<String, dynamic> toJson() {

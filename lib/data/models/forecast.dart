@@ -19,6 +19,7 @@ class Forecast {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['days'] = days.map((v) => v.toJson()).toList();
+    data['cityName'] = cityName;
     return data;
   }
 }
