@@ -13,27 +13,24 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('SimpleWeather'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: BlocConsumer<WeatherCubit, WeatherState>(
-          listener: (context, state) {
-            if (state is WeatherErrorState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Não foi possível carregar dados.'),
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is WeatherLoadingState) {
-              return _buildLoading();
-            } else if (state is WeatherLoadedState) {
-              return _buildWeather(state.forecast);
-            }
-            return HomeSearchWidget();
-          },
-        ),
+      body: BlocConsumer<WeatherCubit, WeatherState>(
+        listener: (context, state) {
+          if (state is WeatherErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Não foi possível carregar dados.'),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is WeatherLoadingState) {
+            return _buildLoading();
+          } else if (state is WeatherLoadedState) {
+            return _buildWeather(state.forecast);
+          }
+          return HomeSearchWidget();
+        },
       ),
     );
   }
@@ -46,11 +43,23 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            HomeWeatherCard(
-              day: forecast.days[0],
-              cityName: forecast.cityName,
+            Builder(
+              builder: (context) => SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 450,
+                child: PageView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: forecast.days.length,
+                  itemBuilder: (context, index) {
+                    return HomeWeatherCard(
+                      day: forecast.days[index],
+                      cityName: forecast.cityName,
+                    );
+                  },
+                ),
+              ),
             ),
             HomeSearchWidget(
               initialText: forecast.cityName,

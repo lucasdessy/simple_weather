@@ -23,57 +23,60 @@ class _HomeSearchWidgetState extends State<HomeSearchWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Builder(
-          builder: (context) => TypeAheadField<_ItemSuggestion>(
-            textFieldConfiguration: TextFieldConfiguration(
-              decoration: InputDecoration(
-                labelText: 'Digite uma cidade...',
-                border: OutlineInputBorder(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Builder(
+            builder: (context) => TypeAheadField<_ItemSuggestion>(
+              textFieldConfiguration: TextFieldConfiguration(
+                decoration: InputDecoration(
+                  labelText: 'Digite uma cidade...',
+                  border: OutlineInputBorder(),
+                ),
+                controller: controller,
               ),
-              controller: controller,
-            ),
-            itemBuilder: (context, suggestion) => ListTile(
-              title: Text('${suggestion.name}'),
-            ),
-            onSuggestionSelected: (suggestion) {
-              context
-                  .read<WeatherCubit>()
-                  .reloadWeather(suggestion.code, suggestion.name);
-            },
-            noItemsFoundBuilder: (context) => ListTile(
-              title: Text('Nenhuma cidade encontrada.'),
-            ),
-            suggestionsCallback: (pattern) {
-              final suggestionList = <_ItemSuggestion>[];
-              var keys = Constants.citiesMap.keys
-                  .where(
-                    (element) =>
-                        removeDiacritics(element.toUpperCase()).contains(
-                      removeDiacritics(
-                        pattern.toUpperCase(),
+              itemBuilder: (context, suggestion) => ListTile(
+                title: Text('${suggestion.name}'),
+              ),
+              onSuggestionSelected: (suggestion) {
+                context
+                    .read<WeatherCubit>()
+                    .reloadWeather(suggestion.code, suggestion.name);
+              },
+              noItemsFoundBuilder: (context) => ListTile(
+                title: Text('Nenhuma cidade encontrada.'),
+              ),
+              suggestionsCallback: (pattern) {
+                final suggestionList = <_ItemSuggestion>[];
+                var keys = Constants.citiesMap.keys
+                    .where(
+                      (element) =>
+                          removeDiacritics(element.toUpperCase()).contains(
+                        removeDiacritics(
+                          pattern.toUpperCase(),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList();
-              if (keys.length > 10) {
-                keys = keys.sublist(0, 10);
-              }
+                    )
+                    .toList();
+                if (keys.length > 10) {
+                  keys = keys.sublist(0, 10);
+                }
 
-              keys.forEach((key) {
-                suggestionList
-                    .add(_ItemSuggestion('${Constants.citiesMap[key]}', key));
-              });
+                keys.forEach((key) {
+                  suggestionList
+                      .add(_ItemSuggestion('${Constants.citiesMap[key]}', key));
+                });
 
-              return suggestionList;
-            },
+                return suggestionList;
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

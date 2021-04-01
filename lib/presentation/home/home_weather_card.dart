@@ -14,7 +14,7 @@ class HomeWeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       height: 450,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -30,7 +30,7 @@ class HomeWeatherCard extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: [0.2, 1.0]),
       ),
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,16 +137,14 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
             child: HomeChart(
           data: MakeChart.makeChart(chartList),
         )),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _temperatureCard(Icon(Icons.thermostat_outlined), 0),
-              _temperatureCard(Icon(Icons.water_damage_outlined), 1),
-              _temperatureCard(Icon(Icons.line_style), 2),
-              _temperatureCard(Icon(Icons.umbrella), 3),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _temperatureCard(Icon(Icons.thermostat_outlined), 0),
+            _temperatureCard(Icon(Icons.water_damage_outlined), 1),
+            _temperatureCard(Icon(Icons.line_style), 2),
+            _temperatureCard(Icon(Icons.umbrella), 3),
+          ],
         ),
       ],
     );
