@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_weather/data/providers/weather_provider.dart';
-import 'package:simple_weather/data/repositories/weather_repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'app.dart';
+import 'package:simple_weather/infrastructure/weather/weather_facade.dart';
+import 'package:simple_weather/presentation/core/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,11 +12,9 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
-
-  final weatherProvider = WeatherFirebaseProvider();
   runApp(
     App(
-      weatherRepository: WeatherRepository(provider: weatherProvider),
+      weatherFacade: WeatherFacade(),
     ),
   );
 }

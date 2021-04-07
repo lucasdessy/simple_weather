@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:simple_weather/data/models/day.dart';
+import 'package:simple_weather/domain/weather/day.dart';
+
 import 'package:simple_weather/presentation/home/home_chart.dart';
 import 'package:simple_weather/util/log.dart';
 import 'package:simple_weather/util/make_chart.dart';

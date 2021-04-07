@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_weather/constants.dart';
-import 'package:simple_weather/logic/cubit/weather_cubit.dart';
+import 'package:simple_weather/application/weather/weather_cubit.dart';
 
 class HomeSearchWidget extends StatefulWidget {
   final String? initialText;
