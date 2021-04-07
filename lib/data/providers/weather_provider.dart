@@ -1,4 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:simple_weather/util/log.dart';
 
 abstract class WeatherProvider {
   Future<Map<String, dynamic>> getWeather(String cityId, String cityName);
@@ -15,11 +16,11 @@ class WeatherFirebaseProvider implements WeatherProvider {
   Future<Map<String, dynamic>> getWeather(
       String cityId, String cityName) async {
     try {
-      print('getting weather...');
+      log('getting weather...');
       final response = await _getWeather({'cityId': cityId});
-      return Map<String, dynamic>.from(response.data);
+      return Map<String, dynamic>.from(response.data as Map);
     } catch (e) {
-      print('erro ao processar. $e');
+      log('erro ao processar. $e');
       throw Exception();
     }
   }

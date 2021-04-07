@@ -26,28 +26,27 @@ class _HomeSearchWidgetState extends State<HomeSearchWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Builder(
             builder: (context) => TypeAheadField<_ItemSuggestion>(
               textFieldConfiguration: TextFieldConfiguration(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Digite uma cidade...',
                   border: OutlineInputBorder(),
                 ),
                 controller: controller,
               ),
               itemBuilder: (context, suggestion) => ListTile(
-                title: Text('${suggestion.name}'),
+                title: Text(suggestion.name),
               ),
               onSuggestionSelected: (suggestion) {
                 context
                     .read<WeatherCubit>()
                     .reloadWeather(suggestion.code, suggestion.name);
               },
-              noItemsFoundBuilder: (context) => ListTile(
+              noItemsFoundBuilder: (context) => const ListTile(
                 title: Text('Nenhuma cidade encontrada.'),
               ),
               suggestionsCallback: (pattern) {
@@ -65,11 +64,10 @@ class _HomeSearchWidgetState extends State<HomeSearchWidget> {
                 if (keys.length > 10) {
                   keys = keys.sublist(0, 10);
                 }
-
-                keys.forEach((key) {
-                  suggestionList
-                      .add(_ItemSuggestion('${Constants.citiesMap[key]}', key));
-                });
+                for (final key in keys) {
+                  suggestionList.add(
+                      _ItemSuggestion(Constants.citiesMap[key] ?? '', key));
+                }
 
                 return suggestionList;
               },

@@ -4,6 +4,8 @@ import 'routes.dart';
 
 class AppRouter {
   static final router = <String, WidgetBuilder>{
-    Routes.HOME: (ctx) => HomePage(),
+    Routes.home: (ctx) => HomePage(),
   };
+
+  AppRouter();
 }

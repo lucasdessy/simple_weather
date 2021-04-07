@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:simple_weather/data/models/day.dart';
 import 'package:simple_weather/presentation/home/home_chart.dart';
+import 'package:simple_weather/util/log.dart';
 import 'package:simple_weather/util/make_chart.dart';
 
 class HomeWeatherCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeWeatherCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 450,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
         border: Border.all(color: Colors.blue, width: 2),
@@ -28,11 +29,10 @@ class HomeWeatherCard extends StatelessWidget {
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [0.2, 1.0]),
+            stops: const [0.2, 1.0]),
       ),
       margin: const EdgeInsets.all(16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -41,7 +41,7 @@ class HomeWeatherCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '$cityName',
+                  cityName,
                   style: Theme.of(context).textTheme.headline3?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w200,
@@ -51,7 +51,7 @@ class HomeWeatherCard extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  '${day.day}',
+                  day.day ?? '',
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w300,
@@ -61,7 +61,7 @@ class HomeWeatherCard extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  '${day.date}',
+                  day.date ?? '',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
@@ -100,7 +100,7 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
   }
 
   void swapCharts(int value) {
-    print('///SWAP CHARTS');
+    log('///SWAP CHARTS');
     List<String?>? _newChart;
     switch (value) {
       case 0:
@@ -116,13 +116,13 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
         _newChart = widget.day.precipprob;
         break;
     }
-    print(_newChart);
+    log(_newChart);
     final _newDoubleChart = _newChart?.map((e) {
           final parsedString = e?.replaceAll(RegExp(r'[^\d]'), '');
           return double.tryParse(parsedString ?? '');
         }).toList() ??
         chartList;
-    print(_newDoubleChart);
+    log(_newDoubleChart);
     setState(() {
       chartList = _newDoubleChart;
       currentValue = value;
@@ -140,10 +140,10 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _temperatureCard(Icon(Icons.thermostat_outlined), 0),
-            _temperatureCard(Icon(Icons.water_damage_outlined), 1),
-            _temperatureCard(Icon(Icons.line_style), 2),
-            _temperatureCard(Icon(Icons.umbrella), 3),
+            _temperatureCard(const Icon(Icons.thermostat_outlined), 0),
+            _temperatureCard(const Icon(Icons.water_damage_outlined), 1),
+            _temperatureCard(const Icon(Icons.line_style), 2),
+            _temperatureCard(const Icon(Icons.umbrella), 3),
           ],
         ),
       ],
@@ -158,7 +158,7 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
             duration: const Duration(milliseconds: 350),
             child: Container(
               margin: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
@@ -174,7 +174,7 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
               width: 50,
               height: 50,
               child: IconTheme(
-                data: IconThemeData(color: Colors.white),
+                data: const IconThemeData(color: Colors.white),
                 child: icon,
               ),
             ),

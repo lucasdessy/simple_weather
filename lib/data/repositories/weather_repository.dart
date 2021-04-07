@@ -1,5 +1,6 @@
 import 'package:simple_weather/data/models/forecast.dart';
 import 'package:simple_weather/data/providers/weather_provider.dart';
+import 'package:simple_weather/util/log.dart';
 
 class WeatherRepository {
   final WeatherProvider provider;
@@ -12,7 +13,7 @@ class WeatherRepository {
       final forecast = Forecast.fromJson(jsonMap, cityName: cityName);
       return forecast;
     } catch (e) {
-      print(e);
+      log(e);
       throw Exception();
     }
   }

@@ -16,7 +16,8 @@ class MakeChart {
             }
             return '';
           },
-          getTextStyles: (idx) => TextStyle(color: Colors.purple, fontSize: 16),
+          getTextStyles: (idx) =>
+              const TextStyle(color: Colors.purple, fontSize: 16),
           showTitles: true,
         ),
         bottomTitles: SideTitles(
@@ -43,7 +44,7 @@ class MakeChart {
             },
             showTitles: true,
             getTextStyles: (idx) =>
-                TextStyle(color: Colors.purple, fontSize: 16)),
+                const TextStyle(color: Colors.purple, fontSize: 16)),
       ),
       borderData: FlBorderData(
         show: false,
@@ -74,8 +75,8 @@ class MakeChart {
           Colors.purple,
           Colors.blue,
         ],
-        gradientTo: Offset(0, 2),
-        gradientFrom: Offset(0, 0),
+        gradientTo: const Offset(0, 2),
+        gradientFrom: const Offset(0, 0),
         barWidth: 6,
         isStrokeCapRound: true,
         dotData: FlDotData(

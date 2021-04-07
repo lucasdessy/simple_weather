@@ -2,6 +2,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:simple_weather/data/models/forecast.dart';
 import 'package:simple_weather/data/repositories/weather_repository.dart';
+import 'package:simple_weather/util/log.dart';
 
 part 'weather_state.dart';
 
@@ -15,7 +16,7 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
       final _weather = await repository.getForecast(cityId, cityName);
       emit(WeatherLoadedState(_weather));
     } catch (e) {
-      print(e);
+      log(e);
       emit(WeatherErrorState());
     }
   }

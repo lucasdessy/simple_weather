@@ -7,11 +7,11 @@ class Forecast {
   Forecast({required this.cityName, required this.days});
 
   Forecast.fromJson(Map<String, dynamic> json, {String? cityName}) {
-    this.cityName = json['cityName'] ?? cityName ?? '';
+    this.cityName = json['cityName']?.toString() ?? cityName ?? '';
     if (json['days'] != null) {
       days = <Day>[];
       json['days'].forEach((v) {
-        days.add(Day.fromJson(Map.from(v)));
+        days.add(Day.fromJson(v as Map<String, dynamic>));
       });
     }
   }

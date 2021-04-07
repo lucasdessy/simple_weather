@@ -11,13 +11,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SimpleWeather'),
+        title: const Text('SimpleWeather'),
       ),
       body: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (context, state) {
           if (state is WeatherErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Não foi possível carregar dados.'),
               ),
             );
@@ -29,28 +29,24 @@ class HomePage extends StatelessWidget {
           } else if (state is WeatherLoadedState) {
             return _buildWeather(state.forecast);
           }
-          return HomeSearchWidget();
+          return const HomeSearchWidget();
         },
       ),
     );
   }
 
-  Widget _buildLoading() => Center(
+  Widget _buildLoading() => const Center(
         child: CircularProgressIndicator(),
       );
 
   Widget _buildWeather(Forecast forecast) => SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Builder(
               builder: (context) => SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 450,
                 child: PageView.builder(
-                  scrollDirection: Axis.horizontal,
                   itemCount: forecast.days.length,
                   itemBuilder: (context, index) {
                     return HomeWeatherCard(

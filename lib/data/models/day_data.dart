@@ -8,9 +8,9 @@ class DayData {
   DayData({this.wind, this.humidity, this.precip});
 
   DayData.fromJson(Map<String, dynamic> json) {
-    wind = HtmlCharacterEntities.decode(json['wind']);
-    humidity = HtmlCharacterEntities.decode(json['humidity']);
-    precip = HtmlCharacterEntities.decode(json['precip']);
+    wind = HtmlCharacterEntities.decode(json['wind'].toString());
+    humidity = HtmlCharacterEntities.decode(json['humidity'].toString());
+    precip = HtmlCharacterEntities.decode(json['precip'].toString());
   }
 
   Map<String, dynamic> toJson() {

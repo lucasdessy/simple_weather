@@ -29,13 +29,14 @@ class Day {
       this.precipprob});
 
   Day.fromJson(Map<String, dynamic> json) {
-    day = HtmlCharacterEntities.decode(json['day']);
-    dayShort = HtmlCharacterEntities.decode(json['day_short']);
-    date = HtmlCharacterEntities.decode(json['date']);
-    tempMin = HtmlCharacterEntities.decode(json['temp_min']);
-    tempMax = HtmlCharacterEntities.decode(json['temp_max']);
-    data =
-        json['data'] != null ? DayData.fromJson(Map.from(json['data'])) : null;
+    day = HtmlCharacterEntities.decode(json['day'].toString());
+    dayShort = HtmlCharacterEntities.decode(json['day_short'].toString());
+    date = HtmlCharacterEntities.decode(json['date'].toString());
+    tempMin = HtmlCharacterEntities.decode(json['temp_min'].toString());
+    tempMax = HtmlCharacterEntities.decode(json['temp_max'].toString());
+    data = json['data'] != null
+        ? DayData.fromJson(json['data'] as Map<String, dynamic>)
+        : null;
     temperatures = (json['temperatures'] as List)
         .map((e) => HtmlCharacterEntities.decode(e.toString()))
         .toList();
