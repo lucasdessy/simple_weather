@@ -1,5 +1,7 @@
-import 'package:html_character_entities/html_character_entities.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'day_data.g.dart';
 
+@JsonSerializable()
 class DayData {
   String? wind;
   String? humidity;
@@ -7,17 +9,8 @@ class DayData {
 
   DayData({this.wind, this.humidity, this.precip});
 
-  DayData.fromJson(Map<String, dynamic> json) {
-    wind = HtmlCharacterEntities.decode(json['wind'].toString());
-    humidity = HtmlCharacterEntities.decode(json['humidity'].toString());
-    precip = HtmlCharacterEntities.decode(json['precip'].toString());
-  }
+  factory DayData.fromJson(Map<String, dynamic> json) =>
+      _$DayDataFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['wind'] = wind;
-    data['humidity'] = humidity;
-    data['precip'] = precip;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$DayDataToJson(this);
 }

@@ -1,28 +1,13 @@
 part of 'weather_cubit.dart';
 
+@freezed
 @immutable
-abstract class WeatherState {}
+class WeatherState with _$WeatherState {
+  const factory WeatherState.initial() = WeatherInitialState;
+  const factory WeatherState.loading() = WeatherLoadingState;
+  const factory WeatherState.error() = WeatherErrorState;
+  const factory WeatherState.loaded(Forecast forecast) = WeatherLoadedState;
 
-class WeatherInitialState extends WeatherState {}
-
-class WeatherLoadingState extends WeatherState {}
-
-class WeatherErrorState extends WeatherState {}
-
-class WeatherLoadedState extends WeatherState {
-  final Forecast forecast;
-
-  WeatherLoadedState(this.forecast);
-
-  Map<String, dynamic> toMap() {
-    return {
-      'forecast': forecast.toJson(),
-    };
-  }
-
-  factory WeatherLoadedState.fromMap(Map<String, dynamic> map) {
-    return WeatherLoadedState(
-      Forecast.fromJson(map['forecast'] as Map<String, dynamic>),
-    );
-  }
+  factory WeatherState.fromJson(Map<String, dynamic> json) =>
+      _$WeatherStateFromJson(json);
 }

@@ -25,12 +25,20 @@ class HomePage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is WeatherLoadingState) {
-            return _buildLoading();
-          } else if (state is WeatherLoadedState) {
-            return _buildWeather(state.forecast);
-          }
-          return const HomeSearchWidget();
+          return state.map<Widget>(
+            initial: (_) {
+              return const HomeSearchWidget();
+            },
+            loading: (_) {
+              return _buildLoading();
+            },
+            error: (_) {
+              return const HomeSearchWidget();
+            },
+            loaded: (s) {
+              return _buildWeather(s.forecast);
+            },
+          );
         },
       ),
     );

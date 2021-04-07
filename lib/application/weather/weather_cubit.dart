@@ -1,30 +1,30 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/domain/weather/i_weather_facade.dart';
-import 'package:simple_weather/util/log.dart';
-
+part 'weather_cubit.freezed.dart';
 part 'weather_state.dart';
+part 'weather_cubit.g.dart';
 
 class WeatherCubit extends HydratedCubit<WeatherState> {
   final IWeatherFacade weatherFacade;
-  WeatherCubit(this.weatherFacade) : super(WeatherInitialState());
+  WeatherCubit(this.weatherFacade) : super(const WeatherState.initial());
 
   Future<void> reloadWeather(String cityId, String cityName) async {
-    try {
-      emit(WeatherLoadingState());
-      final _weather = await weatherFacade.getForecast(cityId, cityName);
-      emit(WeatherLoadedState(_weather));
-    } catch (e) {
-      log(e);
-      emit(WeatherErrorState());
-    }
+    emit(const WeatherState.loading());
+    final _weather = await weatherFacade.getForecast(cityId, cityName);
+    _weather.fold((l) => emit(const WeatherState.error()),
+        (r) => emit(WeatherState.loaded(r)));
   }
 
   @override
   WeatherState? fromJson(Map<String, dynamic> json) {
     try {
-      return WeatherLoadedState.fromMap(json);
+      final state = WeatherState.fromJson(json);
+      if (state is WeatherLoadedState) {
+        return state;
+      }
+      return null;
     } catch (e) {
       return null;
     }
@@ -33,7 +33,7 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
   @override
   Map<String, dynamic>? toJson(WeatherState state) {
     if (state is WeatherLoadedState) {
-      return state.toMap();
+      return state.toJson();
     }
     return null;
   }
