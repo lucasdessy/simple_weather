@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 
 class MakeChart {
   static LineChartData makeChart(List<double?> chartValues) {
+    double maxY = 15;
+    for (final value in chartValues) {
+      if (value == null) {
+        continue;
+      }
+      if (value > maxY) {
+        maxY = value;
+      }
+    }
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -50,6 +59,7 @@ class MakeChart {
         show: false,
       ),
       minY: 0,
+      maxY: maxY,
       lineBarsData: makeLineBar(chartValues),
     );
   }
