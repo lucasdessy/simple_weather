@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
+import 'package:html_character_entities/html_character_entities.dart';
 import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/domain/weather/i_weather_facade.dart';
 import 'package:simple_weather/domain/weather/weather_failure.dart';
@@ -21,7 +22,8 @@ class WeatherFacade implements IWeatherFacade {
       log('getting weather...');
       final response = await _getWeather({'cityId': cityId});
       final responseMap =
-          jsonDecode(jsonEncode(response.data)) as Map<String, dynamic>;
+          jsonDecode(HtmlCharacterEntities.decode(jsonEncode(response.data)))
+              as Map<String, dynamic>;
       responseMap['cityName'] = cityName;
       final forecast = Forecast.fromJson(responseMap);
       return right(forecast);

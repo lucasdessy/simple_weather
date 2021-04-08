@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_weather/application/weather/weather_cubit.dart';
+import 'package:simple_weather/application/weather/weather_bloc.dart';
 import 'package:simple_weather/domain/weather/i_weather_facade.dart';
 import 'package:simple_weather/presentation/router/app_router.dart';
 
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => WeatherCubit(weatherFacade)),
+        BlocProvider(create: (_) => WeatherBloc(weatherFacade)),
       ],
       child: MaterialApp(
         routes: AppRouter.router,

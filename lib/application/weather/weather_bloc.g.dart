@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_cubit.dart';
+part of 'weather_bloc.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -34,12 +34,14 @@ Map<String, dynamic> _$_$WeatherErrorStateToJson(
 
 _$WeatherLoadedState _$_$WeatherLoadedStateFromJson(Map<String, dynamic> json) {
   return _$WeatherLoadedState(
-    Forecast.fromJson(json['forecast'] as Map<String, dynamic>),
+    (json['forecasts'] as Map<String, dynamic>).map(
+      (k, e) => MapEntry(k, Forecast.fromJson(e as Map<String, dynamic>)),
+    ),
   );
 }
 
 Map<String, dynamic> _$_$WeatherLoadedStateToJson(
         _$WeatherLoadedState instance) =>
     <String, dynamic>{
-      'forecast': instance.forecast,
+      'forecasts': instance.forecasts,
     };

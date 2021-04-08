@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'weather_cubit.dart';
+part of 'weather_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -44,9 +44,9 @@ class _$WeatherStateTearOff {
     return const WeatherErrorState();
   }
 
-  WeatherLoadedState loaded(Forecast forecast) {
+  WeatherLoadedState loaded(Map<String, Forecast> forecasts) {
     return WeatherLoadedState(
-      forecast,
+      forecasts,
     );
   }
 
@@ -65,7 +65,7 @@ mixin _$WeatherState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function(Forecast forecast) loaded,
+    required TResult Function(Map<String, Forecast> forecasts) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,7 +73,7 @@ mixin _$WeatherState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function(Forecast forecast)? loaded,
+    TResult Function(Map<String, Forecast> forecasts)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -160,7 +160,7 @@ class _$WeatherInitialState implements WeatherInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function(Forecast forecast) loaded,
+    required TResult Function(Map<String, Forecast> forecasts) loaded,
   }) {
     return initial();
   }
@@ -171,7 +171,7 @@ class _$WeatherInitialState implements WeatherInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function(Forecast forecast)? loaded,
+    TResult Function(Map<String, Forecast> forecasts)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -266,7 +266,7 @@ class _$WeatherLoadingState implements WeatherLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function(Forecast forecast) loaded,
+    required TResult Function(Map<String, Forecast> forecasts) loaded,
   }) {
     return loading();
   }
@@ -277,7 +277,7 @@ class _$WeatherLoadingState implements WeatherLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function(Forecast forecast)? loaded,
+    TResult Function(Map<String, Forecast> forecasts)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -372,7 +372,7 @@ class _$WeatherErrorState implements WeatherErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function(Forecast forecast) loaded,
+    required TResult Function(Map<String, Forecast> forecasts) loaded,
   }) {
     return error();
   }
@@ -383,7 +383,7 @@ class _$WeatherErrorState implements WeatherErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function(Forecast forecast)? loaded,
+    TResult Function(Map<String, Forecast> forecasts)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -436,7 +436,7 @@ abstract class $WeatherLoadedStateCopyWith<$Res> {
   factory $WeatherLoadedStateCopyWith(
           WeatherLoadedState value, $Res Function(WeatherLoadedState) then) =
       _$WeatherLoadedStateCopyWithImpl<$Res>;
-  $Res call({Forecast forecast});
+  $Res call({Map<String, Forecast> forecasts});
 }
 
 /// @nodoc
@@ -452,13 +452,13 @@ class _$WeatherLoadedStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? forecast = freezed,
+    Object? forecasts = freezed,
   }) {
     return _then(WeatherLoadedState(
-      forecast == freezed
-          ? _value.forecast
-          : forecast // ignore: cast_nullable_to_non_nullable
-              as Forecast,
+      forecasts == freezed
+          ? _value.forecasts
+          : forecasts // ignore: cast_nullable_to_non_nullable
+              as Map<String, Forecast>,
     ));
   }
 }
@@ -467,31 +467,31 @@ class _$WeatherLoadedStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$WeatherLoadedState implements WeatherLoadedState {
-  const _$WeatherLoadedState(this.forecast);
+  const _$WeatherLoadedState(this.forecasts);
 
   factory _$WeatherLoadedState.fromJson(Map<String, dynamic> json) =>
       _$_$WeatherLoadedStateFromJson(json);
 
   @override
-  final Forecast forecast;
+  final Map<String, Forecast> forecasts;
 
   @override
   String toString() {
-    return 'WeatherState.loaded(forecast: $forecast)';
+    return 'WeatherState.loaded(forecasts: $forecasts)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is WeatherLoadedState &&
-            (identical(other.forecast, forecast) ||
+            (identical(other.forecasts, forecasts) ||
                 const DeepCollectionEquality()
-                    .equals(other.forecast, forecast)));
+                    .equals(other.forecasts, forecasts)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(forecast);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(forecasts);
 
   @JsonKey(ignore: true)
   @override
@@ -504,9 +504,9 @@ class _$WeatherLoadedState implements WeatherLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() error,
-    required TResult Function(Forecast forecast) loaded,
+    required TResult Function(Map<String, Forecast> forecasts) loaded,
   }) {
-    return loaded(forecast);
+    return loaded(forecasts);
   }
 
   @override
@@ -515,11 +515,11 @@ class _$WeatherLoadedState implements WeatherLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? error,
-    TResult Function(Forecast forecast)? loaded,
+    TResult Function(Map<String, Forecast> forecasts)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(forecast);
+      return loaded(forecasts);
     }
     return orElse();
   }
@@ -557,13 +557,227 @@ class _$WeatherLoadedState implements WeatherLoadedState {
 }
 
 abstract class WeatherLoadedState implements WeatherState {
-  const factory WeatherLoadedState(Forecast forecast) = _$WeatherLoadedState;
+  const factory WeatherLoadedState(Map<String, Forecast> forecasts) =
+      _$WeatherLoadedState;
 
   factory WeatherLoadedState.fromJson(Map<String, dynamic> json) =
       _$WeatherLoadedState.fromJson;
 
-  Forecast get forecast => throw _privateConstructorUsedError;
+  Map<String, Forecast> get forecasts => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $WeatherLoadedStateCopyWith<WeatherLoadedState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$WeatherEventTearOff {
+  const _$WeatherEventTearOff();
+
+  WeatherLoadCityEvent loadCity(String cityId, String cityName) {
+    return WeatherLoadCityEvent(
+      cityId,
+      cityName,
+    );
+  }
+}
+
+/// @nodoc
+const $WeatherEvent = _$WeatherEventTearOff();
+
+/// @nodoc
+mixin _$WeatherEvent {
+  String get cityId => throw _privateConstructorUsedError;
+  String get cityName => throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String cityId, String cityName) loadCity,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String cityId, String cityName)? loadCity,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WeatherLoadCityEvent value) loadCity,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WeatherLoadCityEvent value)? loadCity,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $WeatherEventCopyWith<WeatherEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $WeatherEventCopyWith<$Res> {
+  factory $WeatherEventCopyWith(
+          WeatherEvent value, $Res Function(WeatherEvent) then) =
+      _$WeatherEventCopyWithImpl<$Res>;
+  $Res call({String cityId, String cityName});
+}
+
+/// @nodoc
+class _$WeatherEventCopyWithImpl<$Res> implements $WeatherEventCopyWith<$Res> {
+  _$WeatherEventCopyWithImpl(this._value, this._then);
+
+  final WeatherEvent _value;
+  // ignore: unused_field
+  final $Res Function(WeatherEvent) _then;
+
+  @override
+  $Res call({
+    Object? cityId = freezed,
+    Object? cityName = freezed,
+  }) {
+    return _then(_value.copyWith(
+      cityId: cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cityName: cityName == freezed
+          ? _value.cityName
+          : cityName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class $WeatherLoadCityEventCopyWith<$Res>
+    implements $WeatherEventCopyWith<$Res> {
+  factory $WeatherLoadCityEventCopyWith(WeatherLoadCityEvent value,
+          $Res Function(WeatherLoadCityEvent) then) =
+      _$WeatherLoadCityEventCopyWithImpl<$Res>;
+  @override
+  $Res call({String cityId, String cityName});
+}
+
+/// @nodoc
+class _$WeatherLoadCityEventCopyWithImpl<$Res>
+    extends _$WeatherEventCopyWithImpl<$Res>
+    implements $WeatherLoadCityEventCopyWith<$Res> {
+  _$WeatherLoadCityEventCopyWithImpl(
+      WeatherLoadCityEvent _value, $Res Function(WeatherLoadCityEvent) _then)
+      : super(_value, (v) => _then(v as WeatherLoadCityEvent));
+
+  @override
+  WeatherLoadCityEvent get _value => super._value as WeatherLoadCityEvent;
+
+  @override
+  $Res call({
+    Object? cityId = freezed,
+    Object? cityName = freezed,
+  }) {
+    return _then(WeatherLoadCityEvent(
+      cityId == freezed
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cityName == freezed
+          ? _value.cityName
+          : cityName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$WeatherLoadCityEvent implements WeatherLoadCityEvent {
+  const _$WeatherLoadCityEvent(this.cityId, this.cityName);
+
+  @override
+  final String cityId;
+  @override
+  final String cityName;
+
+  @override
+  String toString() {
+    return 'WeatherEvent.loadCity(cityId: $cityId, cityName: $cityName)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is WeatherLoadCityEvent &&
+            (identical(other.cityId, cityId) ||
+                const DeepCollectionEquality().equals(other.cityId, cityId)) &&
+            (identical(other.cityName, cityName) ||
+                const DeepCollectionEquality()
+                    .equals(other.cityName, cityName)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(cityId) ^
+      const DeepCollectionEquality().hash(cityName);
+
+  @JsonKey(ignore: true)
+  @override
+  $WeatherLoadCityEventCopyWith<WeatherLoadCityEvent> get copyWith =>
+      _$WeatherLoadCityEventCopyWithImpl<WeatherLoadCityEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String cityId, String cityName) loadCity,
+  }) {
+    return loadCity(cityId, cityName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String cityId, String cityName)? loadCity,
+    required TResult orElse(),
+  }) {
+    if (loadCity != null) {
+      return loadCity(cityId, cityName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WeatherLoadCityEvent value) loadCity,
+  }) {
+    return loadCity(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WeatherLoadCityEvent value)? loadCity,
+    required TResult orElse(),
+  }) {
+    if (loadCity != null) {
+      return loadCity(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WeatherLoadCityEvent implements WeatherEvent {
+  const factory WeatherLoadCityEvent(String cityId, String cityName) =
+      _$WeatherLoadCityEvent;
+
+  @override
+  String get cityId => throw _privateConstructorUsedError;
+  @override
+  String get cityName => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  $WeatherLoadCityEventCopyWith<WeatherLoadCityEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }

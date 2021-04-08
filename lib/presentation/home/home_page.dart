@@ -1,20 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_weather/application/weather/weather_cubit.dart';
-import 'package:simple_weather/domain/weather/forecast.dart';
-
-import 'package:simple_weather/presentation/home/home_weather_card.dart';
-
-import 'home_search_widget.dart';
+import 'package:simple_weather/application/weather/weather_bloc.dart';
+import 'package:simple_weather/presentation/drawer/app_drawer.dart';
+import 'package:simple_weather/presentation/router/routes.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: const Text('SimpleWeather'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => addNewCity(context),
+          ),
+        ],
       ),
-      body: BlocConsumer<WeatherCubit, WeatherState>(
+      body: BlocConsumer<WeatherBloc, WeatherState>(
         listener: (context, state) {
           if (state is WeatherErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -27,16 +32,16 @@ class HomePage extends StatelessWidget {
         builder: (context, state) {
           return state.map<Widget>(
             initial: (_) {
-              return const HomeSearchWidget();
+              return _buildNone();
             },
             loading: (_) {
               return _buildLoading();
             },
             error: (_) {
-              return const HomeSearchWidget();
+              return _buildNone();
             },
             loaded: (s) {
-              return _buildWeather(s.forecast);
+              return _buildNone();
             },
           );
         },
@@ -48,28 +53,27 @@ class HomePage extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
 
-  Widget _buildWeather(Forecast forecast) => SingleChildScrollView(
-        child: Column(
-          children: [
-            Builder(
-              builder: (context) => SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 450,
-                child: PageView.builder(
-                  itemCount: forecast.days.length,
-                  itemBuilder: (context, index) {
-                    return HomeWeatherCard(
-                      day: forecast.days[index],
-                      cityName: forecast.cityName,
-                    );
-                  },
-                ),
+  Widget _buildNone() => Center(
+        child: Builder(
+          builder: (context) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Não há nenhuma cidade selecionada.',
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
               ),
-            ),
-            HomeSearchWidget(
-              initialText: forecast.cityName,
-            ),
-          ],
+              TextButton(
+                onPressed: () => addNewCity(context),
+                child: const Text('Adicionar cidade'),
+              ),
+            ],
+          ),
         ),
       );
+
+  void addNewCity(BuildContext context) {
+    Navigator.of(context).pushNamed(Routes.addCity);
+  }
 }
