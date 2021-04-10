@@ -5,7 +5,7 @@ import 'package:diacritic/diacritic.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:simple_weather/constants.dart';
-import 'package:simple_weather/domain/search/item_suggestion.dart';
+import 'package:simple_weather/domain/weather/search/item_suggestion.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';

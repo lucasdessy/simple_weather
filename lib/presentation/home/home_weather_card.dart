@@ -19,10 +19,6 @@ class HomeWeatherCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 450,
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
-        ),
-        border: Border.all(color: Colors.blue, width: 2),
         gradient: LinearGradient(
             colors: [
               Colors.blue,
@@ -32,7 +28,6 @@ class HomeWeatherCard extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: const [0.2, 1.0]),
       ),
-      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -132,22 +127,24 @@ class __TemperatureCardsState extends State<_TemperatureCards> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: HomeChart(
-          data: MakeChart.makeChart(chartList),
-        )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _temperatureCard(const Icon(Icons.thermostat_outlined), 0),
-            _temperatureCard(const Icon(Icons.water_damage_outlined), 1),
-            _temperatureCard(const Icon(Icons.line_style), 2),
-            _temperatureCard(const Icon(Icons.umbrella), 3),
-          ],
-        ),
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+              child: HomeChart(
+            data: MakeChart.makeChart(chartList),
+          )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _temperatureCard(const Icon(Icons.thermostat_outlined), 0),
+              _temperatureCard(const Icon(Icons.water_damage_outlined), 1),
+              _temperatureCard(const Icon(Icons.line_style), 2),
+              _temperatureCard(const Icon(Icons.umbrella), 3),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

@@ -6,6 +6,7 @@ import 'package:html_character_entities/html_character_entities.dart';
 import 'package:injectable/injectable.dart';
 import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/domain/weather/i_weather_facade.dart';
+import 'package:simple_weather/domain/weather/search/item_suggestion.dart';
 import 'package:simple_weather/domain/weather/weather_failure.dart';
 import 'package:simple_weather/util/log.dart';
 
@@ -19,14 +20,14 @@ class WeatherFacade implements IWeatherFacade {
   }
   @override
   Future<Either<WeatherFailure, Forecast>> getForecast(
-      String cityId, String cityName) async {
+      ItemSuggestion suggestion) async {
     try {
       log('getting weather...');
-      final response = await _getWeather({'cityId': cityId});
+      final response = await _getWeather({'cityId': suggestion.code});
       final responseMap =
           jsonDecode(HtmlCharacterEntities.decode(jsonEncode(response.data)))
               as Map<String, dynamic>;
-      responseMap['cityName'] = cityName;
+      responseMap['suggestion'] = suggestion.toJson();
       final forecast = Forecast.fromJson(responseMap);
       return right(forecast);
     } catch (e) {

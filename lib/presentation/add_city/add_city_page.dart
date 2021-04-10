@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_weather/application/search/search_bloc.dart';
+import 'package:simple_weather/application/weather/search/search_bloc.dart';
+import 'package:simple_weather/application/weather/weather_bloc.dart';
 import 'package:simple_weather/injection.dart';
 
 class AddCityPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class AddCityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           TextButton(
             onPressed: () {
@@ -56,7 +58,12 @@ class AddCityPage extends StatelessWidget {
                         final result = state.results[index];
                         return ListTile(
                           title: Text(result.name),
-                          onTap: () {},
+                          onTap: () {
+                            context
+                                .read<WeatherBloc>()
+                                .add(WeatherEvent.loadCity(result));
+                            Navigator.of(context).pop();
+                          },
                         );
                       },
                     ),

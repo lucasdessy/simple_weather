@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_weather/application/weather/list/list_bloc.dart';
 import 'package:simple_weather/application/weather/weather_bloc.dart';
+import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/presentation/drawer/app_drawer.dart';
+import 'package:simple_weather/presentation/home/home_weather_card.dart';
 import 'package:simple_weather/presentation/router/routes.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,13 +24,23 @@ class HomePage extends StatelessWidget {
       ),
       body: BlocConsumer<WeatherBloc, WeatherState>(
         listener: (context, state) {
-          if (state is WeatherErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Não foi possível carregar dados.'),
-              ),
-            );
-          }
+          state.map(
+            initial: (_) {},
+            loading: (_) {},
+            error: (_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Não foi possível carregar dados.'),
+                ),
+              );
+            },
+            loaded: (s) {
+              // TODO(lucas): make this code happen inside bloc (bloc-to-bloc-communication)
+              context
+                  .read<ListBloc>()
+                  .add(ListEvent.cityAdded(s.forecast.suggestion));
+            },
+          );
         },
         builder: (context, state) {
           return state.map<Widget>(
@@ -41,7 +54,7 @@ class HomePage extends StatelessWidget {
               return _buildNone();
             },
             loaded: (s) {
-              return _buildNone();
+              return _buildForecast(s.forecast);
             },
           );
         },
@@ -75,5 +88,15 @@ class HomePage extends StatelessWidget {
 
   void addNewCity(BuildContext context) {
     Navigator.of(context).pushNamed(Routes.addCity);
+  }
+
+  Widget _buildForecast(Forecast forecast) {
+    return PageView.builder(
+      itemCount: forecast.days.length,
+      itemBuilder: (context, index) {
+        final day = forecast.days[index];
+        return HomeWeatherCard(day: day, cityName: forecast.suggestion.name);
+      },
+    );
   }
 }

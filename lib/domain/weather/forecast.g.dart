@@ -8,7 +8,8 @@ part of 'forecast.dart';
 
 Forecast _$ForecastFromJson(Map<String, dynamic> json) {
   return Forecast(
-    cityName: json['cityName'] as String,
+    suggestion:
+        ItemSuggestion.fromJson(json['suggestion'] as Map<String, dynamic>),
     days: (json['days'] as List<dynamic>)
         .map((e) => Day.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -16,6 +17,6 @@ Forecast _$ForecastFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ForecastToJson(Forecast instance) => <String, dynamic>{
-      'cityName': instance.cityName,
+      'suggestion': instance.suggestion,
       'days': instance.days,
     };
