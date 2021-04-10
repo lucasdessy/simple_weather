@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:simple_weather/constants.dart';
 import 'package:simple_weather/domain/search/item_suggestion.dart';
 
@@ -10,6 +11,7 @@ part 'search_event.dart';
 part 'search_state.dart';
 part 'search_bloc.freezed.dart';
 
+@injectable
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchState.initial());
 

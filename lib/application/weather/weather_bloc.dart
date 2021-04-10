@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/domain/weather/i_weather_facade.dart';
 part 'weather_state.dart';
@@ -8,6 +9,7 @@ part 'weather_event.dart';
 part 'weather_bloc.freezed.dart';
 part 'weather_bloc.g.dart';
 
+@injectable
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final IWeatherFacade weatherFacade;
   WeatherBloc(this.weatherFacade) : super(const WeatherState.initial());

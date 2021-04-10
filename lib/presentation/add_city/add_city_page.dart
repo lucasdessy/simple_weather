@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_weather/application/search/search_bloc.dart';
-import 'package:simple_weather/presentation/drawer/app_drawer.dart';
+import 'package:simple_weather/injection.dart';
 
 class AddCityPage extends StatelessWidget {
   @override
@@ -23,7 +23,7 @@ class AddCityPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocProvider(
-          create: (_) => SearchBloc(),
+          create: (_) => getIt<SearchBloc>(),
           child: BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
               return Column(
