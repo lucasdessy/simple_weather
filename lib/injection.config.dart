@@ -26,9 +26,10 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => firebaseInjectableModule.firebaseFunctions);
   gh.lazySingleton<_i4.IWeatherFacade>(
       () => _i5.WeatherFacade(functions: get<_i3.FirebaseFunctions>()));
-  gh.factory<_i6.ListBloc>(() => _i6.ListBloc());
+  gh.lazySingleton<_i6.ListBloc>(() => _i6.ListBloc());
   gh.factory<_i7.SearchBloc>(() => _i7.SearchBloc());
-  gh.factory<_i8.WeatherBloc>(() => _i8.WeatherBloc(get<_i4.IWeatherFacade>()));
+  gh.factory<_i8.WeatherBloc>(
+      () => _i8.WeatherBloc(get<_i4.IWeatherFacade>(), get<_i6.ListBloc>()));
   return get;
 }
 

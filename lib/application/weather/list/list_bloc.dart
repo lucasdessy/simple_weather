@@ -9,7 +9,7 @@ part 'list_event.dart';
 part 'list_state.dart';
 part 'list_bloc.freezed.dart';
 
-@injectable
+@lazySingleton
 class ListBloc extends Bloc<ListEvent, ListState> {
   ListBloc() : super(ListState.initial());
 

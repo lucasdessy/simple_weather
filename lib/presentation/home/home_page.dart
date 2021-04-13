@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_weather/application/weather/list/list_bloc.dart';
 import 'package:simple_weather/application/weather/weather_bloc.dart';
 import 'package:simple_weather/domain/weather/forecast.dart';
 import 'package:simple_weather/presentation/drawer/app_drawer.dart';
@@ -34,12 +33,7 @@ class HomePage extends StatelessWidget {
                 ),
               );
             },
-            loaded: (s) {
-              // TODO(lucas): make this code happen inside bloc (bloc-to-bloc-communication)
-              context
-                  .read<ListBloc>()
-                  .add(ListEvent.cityAdded(s.forecast.suggestion));
-            },
+            loaded: (_) {},
           );
         },
         builder: (context, state) {
